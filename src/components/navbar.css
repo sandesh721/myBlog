@@ -1,0 +1,36 @@
+.navbar {
+    position: fixed; /* Fixes the navbar at the top */
+    top: 10px;
+    left: 50%; /* Centers it horizontally */
+    transform: translateX(-50%); /* Ensures perfect centering */
+    width: 95%; /* Adjust width as needed */
+    background: rgba(178, 243, 248, 0.3); /* Background color */
+    padding: 10px 20px; /* Padding for spacing */
+    border-radius: 30px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Adds shadow for depth */
+    z-index: 1000; /* Ensures it's above other content */
+}
+
+.container_navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbarList {
+    display: flex;
+    gap: 2em;
+    list-style: none;
+    font-weight: 600;
+    font-size: large;
+}
+
+.navbarList > li > a {
+    text-decoration: none;
+    color: black; /* Adjust color */
+    transition: color 0.3s; /* Smooth hover effect */
+}
+
+.navbarList > li > a:hover {
+    color: #09bced; /* Change color on hover */
+}
