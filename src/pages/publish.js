@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FroalaEditorComponent from "react-froala-wysiwyg";
 import "froala-editor/js/froala_editor.pkgd.min.js"; 
 import "froala-editor/css/froala_editor.pkgd.min.css";
@@ -8,15 +8,29 @@ import { createClient } from "@supabase/supabase-js";
 import "../css/publish.css";
 import NavBar from "../components/navbar";
 import { supabase } from "../auth/supabase";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 
 const Publish = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [existingImageUrl, setExistingImageUrl] = useState("");
 
+  useEffect(() => {
+    if (location.state?.article) {
+        const { article } = location.state;
+        setTitle(article.heading);
+        setContent(article.article);
+        setExistingImageUrl(article.img_url);
+    }
+}, [location]);
+// Handle Image Display
+const imagePreview = image ? URL.createObjectURL(image) : existingImageUrl;
   const handleImageUpload = async (file) => {
     try {
       if (!file) {
@@ -55,20 +69,23 @@ const Publish = () => {
 
     try {
       setLoading(true);
-      let imageUrl = "";
+      let imageUrl = existingImageUrl;
       if (image) {
         imageUrl = await handleImageUpload(image);
       }
 
       // Insert article data into Supabase Database
-      const { error } = await supabase.from("articles").insert([
-        {
-          heading: title,
-          article: content,
-          img_url: imageUrl,
-          created_at: new Date().toISOString(),
-        },
-      ]);
+      const { error } = await supabase
+        .from("articles")
+        .upsert([
+            {
+                id: location.state?.article?.id, // Ensure the ID is passed for updates
+                heading: title,
+                article: content,
+                img_url: imageUrl,
+                created_at: new Date().toISOString(),
+            },
+        ]);
 
       if (error) throw error;
 
@@ -82,6 +99,7 @@ const Publish = () => {
     } finally {
       setLoading(false);
     }
+    navigate("/article");
   };
 
   return (
@@ -94,6 +112,7 @@ const Publish = () => {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+      {existingImageUrl && !image && <img src={existingImageUrl} alt="Existing Article" className="img"/>}
       <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
       <FroalaEditorComponent  
         config={{
@@ -103,7 +122,7 @@ const Publish = () => {
           heightMax: 500,
           theme: "gray",
           toolbarButtons: [
-            "bold", "italic", "underline", "strikeThrough", "formatOL", "formatUL", "insertImage", "html"
+            "bold", "italic", "underline", "strikeThrough", "formatOL", "formatUL", "insertImage", "html", 
           ],
         }}
         tag="textarea" 

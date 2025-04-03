@@ -24,6 +24,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
+    float: left;
 }
 
 .publishBtn:hover {
@@ -64,64 +65,99 @@ select {
 .listArticles {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 20px;
+    margin-bottom: 20px;
 }
 
 .articleCard {
-    width: 400px;
-    height: 450px; /* Ensures all cards have equal height */
+    width: 350px;
+    height: 450px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Ensures proper spacing */
+    justify-content: space-between;
     padding: 15px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     background: white;
-    position: relative; 
+    position: relative;
     overflow: hidden;
     transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+    
 }
 
 .articleCard:hover {
     transform: translateY(-5px);
 }
 
+/* Image inside card */
 .articleCard > img {
     width: 100%;
     height: 200px;
     object-fit: cover;
     border-radius: 10px;
+    transition: 0.3s;
 }
 
+/* Card content */
 .articleDetails {
     padding: 15px;
     text-align: left;
+    transition: 0.3s;
+    margin-bottom: 20px;
+}
+.fr-view{
+    margin: 7px;
+    line-height: 1.6;
+    font-size: 1.1rem;
 }
 
-.articleDetails h2 {
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.articleDetails p {
-    font-size: 1rem;
-    color: #666;
-    line-height: 1.5;
-}
-
-.readMore {
-    margin-top: auto; /* Pushes the button to the bottom */
-    background-color: #007bff;
+/* Add an overlay on hover */
+.articleCard::before {
+    content: "Read More";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
     color: white;
-    padding: 8px 12px;
-    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 20px;
     border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 10;
 }
 
-.readMore:hover {
-    background-color: #0056b3;
+/* Blur effect */
+.articleCard:hover::before {
+    opacity: 1;
+}
+
+.articleCard:hover img,
+.articleCard:hover .articleDetails {
+    filter: blur(1px);
+}
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

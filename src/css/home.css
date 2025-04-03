@@ -36,7 +36,10 @@ html {
 .mainContent {
     text-align: center;
 }
-
+.mainContent >p{
+    color: #9b9a9a;
+    font-size: 20px;
+}
 .mainContent >h1 {
     font-size: 100px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for h1 */
@@ -122,4 +125,84 @@ html {
     margin: 10px;
     background-color: white; /* White background for cards */
     box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.3); /* Shadow for depth */
+}
+
+.footer {
+    background-color: rgba(113, 239, 248, 0.3);
+    color: #121111;
+    padding: 40px 20px;
+    text-align: center;
+    
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.footer-brand h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin: 5px 0;
+}
+
+.footer-links a {
+    color: #121111;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #797373;
+}
+
+.footer-social .social-icons a {
+    color: #ccc;
+    margin: 0 10px;
+    font-size: 24px;
+    transition: 0.3s;
+    
+}
+.social-icons a img{
+    width: 30px;
+}
+
+.footer-social .social-icons a:hover {
+    color: #00aced;
+}
+
+.footer-newsletter input {
+    padding: 8px;
+    width: 80%;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+.footer-newsletter button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border: none;
+    background: #00aced;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+    font-size: 14px;
+    border-top: 1px solid #444;
+    padding-top: 10px;
 }
