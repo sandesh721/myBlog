@@ -4,6 +4,7 @@ import Home from './pages/home';
 import Article from './pages/article';
 import Publish from './pages/publish';
 import ReadArticle from './pages/readArticle';
+import Quote from './pages/quote';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/article' element={<Article />} />
         <Route path='/publish' element={<Publish />} />
+        <Route path='/quote' element={<Quote />} />
         <Route path='/read/:id' element={<ReadArticle />} />
       </Routes>
     </Router>

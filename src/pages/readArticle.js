@@ -56,24 +56,29 @@ function ReadArticle() {
         <div className="readContainer">
             <NavBar />
             {loading ? (
-                <div className="loader-container">
-                    <div className="loader"></div>
-                </div>
-            ) : (
-            <div className="readContent">
-                {article && (
-                    <>
-                        <div className="editDelete">
-                            <button className="edit" onClick={handleEdit}> Edit</button>
-                            <button className="delete" onClick={handleDelete}> Delete</button>
-                        </div>
-                        <h1>{article.heading}</h1>
-                        <img src={article.img_url} alt={article.heading} />
-                        <FroalaEditorView  model={article.article} />
-                    </>
-                )}
+    <div className="loader-container">
+        <div className="loader"></div>
+    </div>
+) : article ? (  
+    <>
+        <div className="readContent">
+            <div className="editDelete">
+                <button className="edit" onClick={handleEdit}>Edit</button>
+                <button className="delete" onClick={handleDelete}>Delete</button>
             </div>
-            )}
+            <h1>{article.heading}</h1>
+            <img src={article.img_url} alt={article.heading} />
+            <FroalaEditorView model={article.article} />
+        </div>
+
+        <div className="commentSection">
+            <div className="comment">
+                <textarea type='text' placeholder="Enter yout comments here.." />
+            </div>
+        </div>
+    </>
+) : null }  
+
         </div>
     );
 }
