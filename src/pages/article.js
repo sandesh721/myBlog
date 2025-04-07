@@ -5,12 +5,13 @@ import { supabase } from "../auth/supabase";
 import { useEffect, useState } from "react";
 import 'froala-editor/css/froala_editor.css';
 import 'froala-editor/css/froala_style.css';
-
+import { useUser } from "../auth/userContext";
 import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 function Article(){
     const [articles, setArticles] = useState([]);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const { user } = useUser();
     function handlePublish(){
         navigate("/publish");
     }
@@ -44,7 +45,9 @@ function Article(){
             ) : (
             <div className="articleContent">
                 <h1>Articles</h1>
-                <button className="publishBtn" onClick={handlePublish}> Publish Article + </button>
+                {user && user.email === process.env.REACT_APP_ADMIN && (
+                     <button className="publishBtn" onClick={handlePublish}> Publish Article + </button>
+                )}
 
                 <div className="filter">
                     <input type='search' className="search" placeholder="Search articles..." /> 

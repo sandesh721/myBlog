@@ -14,6 +14,9 @@ import instagram from "../components/logo/instagram.png";
 function Home() {
     const navigate = useNavigate();
     const [articles, setArticle] = useState([]);
+    function handleRead(id){
+        navigate(`/read/${id}`);
+    }
     useEffect(() =>{
 
         const fetchArticle = async()=>{
@@ -52,7 +55,7 @@ function Home() {
             <div className="someArticles">
                 {articles.length > 0 ? (
                     articles.map((article) => (
-                        <div key={article.id} className="articleCard">
+                        <div key={article.id} className="articleCard" onClick={() =>handleRead(article.id)}>
                             <img src={article.img_url} alt={article.heading} />
                             <div className="articleDetails">
                                 <h2>{article.heading}</h2>
